@@ -83,7 +83,7 @@ const LayoutPage: FC<IRouteComponentProps> = (props) => {
 
           <main id="main-container">{children}</main>
 
-          <Footer name={title} version={version} />
+          <Footer name={title} version={version} gitVersion={gitVersion} />
         </div>
       </ConfigProvider>
     </>
