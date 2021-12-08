@@ -33,6 +33,9 @@ export const version = window.settings?.version
 export const isStandAlone = process.env.STANDALONE !== undefined
 export const isProduction = process.env.NODE_ENV === 'production'
 
+export const gitVersion = process.env.GIT_VERSION
+export const jsDeliverHost = process.env.JS_DELIVER_HOST
+
 export const currencyFormatter = new Intl.NumberFormat(process.env.CURRENCY_LOCALE, {
   style: 'currency',
   currency: process.env.CURRENCY_UNIT,
