@@ -280,6 +280,18 @@ const List: FC<listProps> = (props) => {
           key="email"
         />
         <Column
+          title={intl.formatMessage({ id: 'module.user.list.column.remarks' })}
+          dataIndex="remarks"
+          key="remarks"
+          render={(remarks: string) => {
+            return (
+              <Space>
+                <Tag color="processing">{remarks || '-'}</Tag>
+              </Space>
+            )
+          }}
+        />
+        <Column
           title={intl.formatMessage({ id: 'module.user.list.column.banned' })}
           dataIndex="banned"
           key="banned"

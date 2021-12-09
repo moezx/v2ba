@@ -494,6 +494,7 @@ export default {
   'module.user.list.column.action.user_invite': 'TA的邀请',
   'module.user.list.column.id': 'ID',
   'module.user.list.column.email': '邮箱',
+  'module.user.list.column.remarks': '备注',
   'module.user.list.column.plan_id': '订阅',
   'module.user.list.column.group_id': '权限组',
   'module.user.list.column.t': '在线',
