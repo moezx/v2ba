@@ -1,5 +1,14 @@
 {
-  "private": true,
+  "name": "@moezx/v2ba",
+  "version": "VERSION_STRING",
+  "description": "v2ba",
+  "license": "MIT",
+  "keywords": ["v2ba"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moezx/v2bu.git"
+  },
+  "private": false,
   "scripts": {
     "start": "cross-env UMI_ENV=DEV umi dev",
     "start:standalone": "cross-env UMI_ENV=DEV STANDALONE=1 umi dev",

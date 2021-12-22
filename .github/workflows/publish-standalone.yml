@@ -1,0 +1,59 @@
+name: Build and Publish (Standalone)
+
+'on':
+  push:
+    branches: [master]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+
+      - name: Prepare Node 🔧
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Get yarn cache directory path 📋
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache dependencies 🚀
+        # uses: actions/cache@v2
+        # with:
+        #   path: ~/.npm
+        #   key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+        #   restore-keys: |
+        #     ${{ runner.os }}-node-
+        uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install and Build 🚧
+        run: yarn install && yarn build:standalone
+
+      - name: Set Variables 📋
+        id: vars
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+      # - name: Prepare NPM 🚀
+      #   run: npm ci
+
+      - name: Change package version 📝
+        run: |
+          sed -i "s/VERSION_STRING/1.0.0-standalone-$(git rev-parse --short HEAD)/g" `grep -rl '"version": "VERSION_STRING",' package.json`
+
+      # - name: Remove ignore file 🗑️
+      #   run: rm -rf .gitignore
+
+      - name: Publish 🎉
+        run: npm publish --scope=@moezx --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
